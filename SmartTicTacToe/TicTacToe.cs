@@ -199,7 +199,7 @@ namespace SmartTicTacToe
                 check_for_winner_and_UpdateScore(player1);
                 Check_for_draw();   //Since Board resets if draw or win, AI gets to play 1st next game. 
                 turnCount++;
-                Random_Fill_On_Empty_Box();
+                Random_Fill_On_Empty_Box(board);
                 UpdateBoard();
                 check_for_winner_and_UpdateScore(player2);
                 Check_for_draw();
@@ -212,7 +212,7 @@ namespace SmartTicTacToe
                 check_for_winner_and_UpdateScore(player1);
                 Check_for_draw();
                 turnCount++;
-                Smart_Fill_On_Empty_Box();
+                Smart_Fill_On_Empty_Box(board);
                 UpdateBoard();
                 check_for_winner_and_UpdateScore(player2);
                 Check_for_draw();
@@ -226,7 +226,7 @@ namespace SmartTicTacToe
             if (turnCount == 9)
             {
                 MessageBox.Show("Its Draw!");
-                InitializeBoard();
+                InitializeBoard(board);
                 Reset_UI();
                 turnCount = 0;
             }
@@ -234,11 +234,11 @@ namespace SmartTicTacToe
 
         private void check_for_winner_and_UpdateScore(Player tempPlayer)
         {
-            if( CheckIfThereIsaMatch())
+            if( CheckIfThereIsaMatch(board))
             {
                 MessageBox.Show(tempPlayer.name + " won, yay!");
                 tempPlayer.score = tempPlayer.score + 1;
-                InitializeBoard();
+                InitializeBoard(board);
                 Reset_UI();
                 turnCount = 0;
 
@@ -248,7 +248,7 @@ namespace SmartTicTacToe
 
 
         }
-        private bool CheckIfThereIsaMatch()
+        public bool CheckIfThereIsaMatch(Board board)
         {
             if (
                    //Horizontal checks
@@ -271,7 +271,7 @@ namespace SmartTicTacToe
             return false;
         }
 
-        private void InitializeBoard()
+        public void InitializeBoard(Board board)
         {
             board.data[1] = "";
             board.data[2] = "";
@@ -309,7 +309,7 @@ namespace SmartTicTacToe
             button9.Text = board.data[9];
         }
 
-        private void Random_Fill_On_Empty_Box()
+        public void Random_Fill_On_Empty_Box(Board board)
         {
             Random random = new Random();
             int randomNumber;
@@ -325,7 +325,7 @@ namespace SmartTicTacToe
             }
         }
 
-        private void Smart_Fill_On_Empty_Box()
+        public void Smart_Fill_On_Empty_Box(Board board)
         {
             bool moveFound = false;
 
@@ -336,7 +336,7 @@ namespace SmartTicTacToe
                 if (board.data[i] == "")
                 {
                     board.data[i] = "O";
-                    if (!CheckIfThereIsaMatch())
+                    if (!CheckIfThereIsaMatch(board))
                         board.data[i] = "";
                     else
                     {
@@ -352,7 +352,7 @@ namespace SmartTicTacToe
                 if (board.data[i] == "")
                 {
                     board.data[i] = "X";
-                    if (CheckIfThereIsaMatch())
+                    if (CheckIfThereIsaMatch(board))
                     {
                             board.data[i] = "O";
                             moveFound = true;

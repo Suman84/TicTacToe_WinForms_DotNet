@@ -10,10 +10,5 @@ namespace SmartTicTacToe
     {
         public string[] data { get; set; } = { "", "", "", "", "", "", "", "", "", ""};
 
-
-        public void setBoard(string[] newData)
-        {
-            data = newData;
-        }
     }
 }
